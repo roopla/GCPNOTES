@@ -2,6 +2,32 @@ GCP VM instance Notes:
 
 https://cloud.google.com/compute/docs/instances/startup-scripts/linux#gcloud
 
+ #! /bin/bash
+ apt update
+ apt -y install apache2
+ cat <<EOF > /var/www/html/index.html
+ <html><body><p>Linux startup script added directly.</p></body></html>
+ EOF
+
+gcloud compute instances create VM_NAME \
+  --image-project=debian-cloud \
+  --image-family=debian-10 \
+  --metadata=startup-script='#! /bin/bash
+  apt update
+  apt -y install apache2
+  cat <<EOF > /var/www/html/index.html
+  <html><body><p>Linux startup script added directly.</p></body></html>
+  EOF'
+
+
+
+#! /bin/bash
+apt update
+apt -y install apache2
+cat <<EOF > /var/www/html/index.html
+<html><body><p>Linux startup script from a local file.</p></body></html>
+EOF
+
 
 
 
